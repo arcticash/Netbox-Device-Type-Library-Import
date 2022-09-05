@@ -31,11 +31,11 @@ def slugFormat(name):
 
 YAML_EXTENSIONS = ['yml', 'yaml']
 
-def getFiles(vendors=None):
-    
+def getFiles(folder='device-types', vendors=None, discoveredVendors=None):
+    if discoveredVendors is None:
+        discoveredVendors = []
     files = []
-    discoveredVendors = []
-    base_path = './repo/device-types/'
+    base_path = f'./repo/{folder}/'
     if vendors:
         for r, d, f in os.walk(base_path):
             for folder in d:
