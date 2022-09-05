@@ -13,7 +13,7 @@ import re
 
 
 counter = Counter(added=0, updated=0, manufacturer=0)
-
+YAML_EXTENSIONS = ['yml', 'yaml']
 
 def update_package(path: str, branch: str):
     try:
@@ -29,13 +29,12 @@ def update_package(path: str, branch: str):
 def slugFormat(name):
     return re.sub('\W+','-', name.lower())
 
-YAML_EXTENSIONS = ['yml', 'yaml']
 
-def getFiles(vendors=None):
-    
+def getFiles(folder='device-types', vendors=None, discoveredVendors=None):
+    if discoveredVendors is None:
+        discoveredVendors = []
     files = []
-    discoveredVendors = []
-    base_path = './repo/device-types/'
+    base_path = f'./repo/{folder}/'
     if vendors:
         for r, d, f in os.walk(base_path):
             for folder in d:
